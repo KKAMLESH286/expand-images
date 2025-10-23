@@ -1,0 +1,31 @@
+{
+  "name": "expand-images",
+  "version": "1.0.0",
+  "description": "A TypeScript program to expand images from 16:1 to 1.91:1 aspect ratio",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/expand-image.js",
+    "example": "node dist/example.js",
+    "dev": "ts-node src/expand-image.ts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "image",
+    "aspect-ratio",
+    "resize",
+    "padding"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "sharp": "^0.33.0",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "ts-node": "^10.9.2"
+  }
+}
