@@ -68,6 +68,8 @@ async function expandImage(
   const xOffset = Math.floor((newWidth - originalWidth) / 2);
 
   // Create expanded image
+  const inputBuffer = await image.png().toBuffer();
+  
   const expandedImage = await sharp({
     create: {
       width: newWidth,
@@ -78,11 +80,12 @@ async function expandImage(
   })
     .composite([
       {
-        input: await image.toBuffer(),
+        input: inputBuffer,
         top: 0,
         left: xOffset
       }
     ])
+    .png()
     .toBuffer();
 
   // Generate output path if not provided
