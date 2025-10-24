@@ -57,19 +57,38 @@ async function main(): Promise<void> {
     const sampleFile = await createSampleImage();
     console.log();
 
-    // Expand with black padding
-    console.log('Step 2: Expanding to 1.91:1 with BLACK padding...');
+    // Expand with black padding (solid strategy)
+    console.log('Step 2: Expanding with SOLID BLACK padding...');
     const outputBlack = await expandImage(sampleFile, 'sample_expanded_black.png', {
       targetRatio: 1.91,
-      paddingColor: 'black'
+      paddingColor: 'black',
+      paddingStrategy: 'solid'
     });
     console.log();
 
-    // Expand with white padding
-    console.log('Step 3: Expanding to 1.91:1 with WHITE padding...');
+    // Expand with white padding (solid strategy)
+    console.log('Step 3: Expanding with SOLID WHITE padding...');
     const outputWhite = await expandImage(sampleFile, 'sample_expanded_white.png', {
       targetRatio: 1.91,
-      paddingColor: 'white'
+      paddingColor: 'white',
+      paddingStrategy: 'solid'
+    });
+    console.log();
+
+    // Expand with blurred edge padding
+    console.log('Step 4: Expanding with BLURRED EDGE padding...');
+    const outputBlur = await expandImage(sampleFile, 'sample_expanded_blur.png', {
+      targetRatio: 1.91,
+      paddingStrategy: 'blur',
+      blurAmount: 15
+    });
+    console.log();
+
+    // Expand with edge extension
+    console.log('Step 5: Expanding with EDGE EXTENSION...');
+    const outputEdge = await expandImage(sampleFile, 'sample_expanded_edge.png', {
+      targetRatio: 1.91,
+      paddingStrategy: 'edge-extend'
     });
     console.log();
 
@@ -78,10 +97,12 @@ async function main(): Promise<void> {
     console.log();
     console.log('Generated files:');
     console.log(`  - ${sampleFile} (original 16:1)`);
-    console.log(`  - ${outputBlack} (expanded with black padding)`);
-    console.log(`  - ${outputWhite} (expanded with white padding)`);
+    console.log(`  - ${outputBlack} (solid black padding)`);
+    console.log(`  - ${outputWhite} (solid white padding)`);
+    console.log(`  - ${outputBlur} (blurred edge padding)`);
+    console.log(`  - ${outputEdge} (edge extension padding)`);
     console.log();
-    console.log('You can now view these images to see the expansion effect.');
+    console.log('You can now view these images to see the different expansion effects.');
   } catch (error) {
     console.error(`Error: ${(error as Error).message}`);
     process.exit(1);
